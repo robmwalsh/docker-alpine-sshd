@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  sshd:
+    image: unclebob418/alpine-sshd
+    ports:
+      - 2222:22
+    networks:
+      - anetwork
+    configs:
+      - source: AUTHORISED_PUB_KEYS
+        target: /root/.ssh/authorized_keys
+    volumes:
+      - somevolume:/somewhere/
+
+networks:
+  anetwork:
+    external: true
+
+configs:
+  AUTHORISED_PUB_KEYS:
+    external: true
+
+volumes:
+  somevolume:
+    external: true
