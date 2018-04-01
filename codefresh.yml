@@ -1,0 +1,16 @@
+version: '1.0'
+steps:
+  build_image:
+    title: Building alpine-sshd
+    type: build
+    image_name: unclebob418/docker-alpine-sshd
+    working_directory: ${{main_clone}}
+    dockerfile: Dockerfile
+
+  push_to_registry:
+    title: Pushing to Docker Registry (with saved credentials)
+    type: push
+    registry: dockerhub
+    candidate: '${{build_image}}'
+    image_name: unclebob418/alpine-sshd
+    tag: latest
